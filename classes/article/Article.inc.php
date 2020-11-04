@@ -219,6 +219,8 @@ class Article extends Submission {
 							$copyrightYear = date('Y', strtotime($publishedArticle->getDatePublished()));
 							break;
 						case 'issue':
+						default: // make 'issue' year as copyrightYear basis
+							 // most journal managers forgot to check either article or issue.
 							if ($publishedArticle->getIssueId()) {
 								// override to the issue's year if published as issue-based
 								$issueDao =& DAORegistry::getDAO('IssueDAO');
@@ -227,8 +229,7 @@ class Article extends Submission {
 									$copyrightYear = date('Y', strtotime($issue->getDatePublished()));
 								}
 							}
-							break;
-						default: assert(false);
+							break;						
 					}
 				}
 				break;
